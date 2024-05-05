@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  <script>
+    // Function to create a table row
+    function createTableRow(name, id, locker) {
+      const row = table.insertRow();
+      const nameCell = row.insertCell();
+      const idCell = row.insertCell();
+      const lockerCell = row.insertCell();
+
+      nameCell.innerText = name;
+      idCell.innerText = id;
+      lockerCell.innerText = locker;
+    }
+
+    // Insert data from MongoDB into the table
+    const insertData = async () => {
+      const response = await fetch("/data.json");
+      const data = await response.json();
+
+      data.forEach((item) => {
+        createTableRow(item.name, item.Do&Co_ID, item.locker);
+      });
+    };
+
+    // Call the insertData function to populate the table
+    insertData();
+  </script>
+
+  
+</body>
+</html>
