@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>Lockers Page</title>
+</head>
+<body>
+    <script src="./index.js"></script>
+    <script>
+        const table = document.querySelector("table");
+        let data = [];
+
+        const getData = async () => {
+            const response = await fetch("/data.json");
+            data = await response.json();
+        };
+
+        const displayData = () => {
+            data.forEach(item => {
+                const row = table.insertRow();
+                const nameCell = row.insertCell();
+                const idCell = row.insertCell();
+                const lockerCell = row.insertCell();
+                const dateCell = row.insertCell();
+
+                nameCell.innerText = item.name;
+                idCell.innerText = item.id;
+                lockerCell.innerText = item.locker;
+                dateCell.innerText = item.date;
+            });
+        };
+
+        getData().then(displayData);
+    </script>
+
+    <script>
+      // Function to create a table row
+      function createTableRow(name, id, locker) {
+        const row = table.insertRow();
+        const nameCell = row.insertCell();
+        const idCell = row.insertCell();
+        const lockerCell = row.insertCell();
+
+        nameCell.innerText = name;
+        idCell.innerText = id;
+        lockerCell.innerText = locker;
+      }
+
+      // Insert data from MongoDB into the table
+      const insertData = async () => {
+        const response = await fetch("/data.json");
+        const data = await response.json();
+
+        data.forEach((item) => {
+          createTableRow(item.name, item.Do&Co_ID, item.locker);
+        });
+      };
+
+      // Call the insertData function to populate the table
+      insertData();
+    </script>
+
+
+  
+      <table>
+        <h1>Todays Date</h1>
+        <tr>
+          <!-- date for admin-->
+            <th>Name</th>
+            <th>Do&Co ID #</th>
+            <th>Locker #</th>
+        </tr>
+        <tr>
+          <th>David Magazine</th>
+          <th>018930</th>
+          <th>436</th>
+        </tr>
+      </table>
+
+</body>
+</html>
